@@ -46,7 +46,7 @@
         scene.add(light2);
 
 
-        var renderer = new THREE.WebGLRenderer({antialias: true});
+        var renderer = new THREE.WebGLRenderer({antialias: false});
         renderer.setClearColor("#D8F5F2");
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -67,17 +67,15 @@
             fragmentShader: document.getElementById('fragmentShader').textContent
         });
 
-        var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+        var geometry = new THREE.SphereBufferGeometry(3, 16, 16);
         var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.z = -2;
+        mesh.position.z = -5;
         mesh.position.x = 0;
         scene.add(mesh);
 
         var render = function() {
             requestAnimationFrame(render);
 
-            mesh.rotation.x += 0.01
-            mesh.rotation.y += 0.01
             renderer.render(scene, camera)
         }
 
