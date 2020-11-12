@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"> </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/BrowserFS/2.0.0/browserfs.js"></script> -->
+
+    <script type="x-shader/x-vertex" id="vertexShader">
+        void main() 
+        {
+            vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_Position = projectionMatrix * modelViewPosition;
+        }
+    </script>
+    <script type="x-shader/x-fragment" id="fragmentShader">
+        void main() {
+            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    </script>
+
+
+    <script>
+
+        // const path = require('path');
+        // const fs = require('fs');
+
+        //CAMERA
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+
+        //SCENE
+        scene = new THREE.Scene();
+
+         //LIGHTS
+        var light = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(light);
+
+        var light2 = new THREE.PointLight(0xffffff, 0.5);
+        scene.add(light2);
+
+
+        var renderer = new THREE.WebGLRenderer({antialias: true});
+        renderer.setClearColor("#D8F5F2");
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.body.appendChild(renderer.domElement);
+
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+
+            camera.updateProjectionMatrix();
+        })
+
+         //Custom Shader Material
+        var material = new THREE.ShaderMaterial({
+            uniforms: [],
+            vertexShader: document.getElementById('vertexShader').textContent,
+            fragmentShader: document.getElementById('fragmentShader').textContent
+        });
+
+        var geometry = new THREE.BoxBufferGeometry(1, 1, 1);
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.position.z = -2;
+        mesh.position.x = 0;
+        scene.add(mesh);
+
+        var render = function() {
+            requestAnimationFrame(render);
+
+            mesh.rotation.x += 0.01
+            mesh.rotation.y += 0.01
+            renderer.render(scene, camera)
+        }
+
+        render();
+    </script>
+
+</body>
+</html>
