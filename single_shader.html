@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rasterization Playground</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.js"> </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"> </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"> </script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js"> </script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/path.js/0.8.4/path.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/BrowserFS/2.0.0/browserfs.js"></script> -->
+   
 
     <script type="x-shader/x-vertex" id="vertexShader">
         void main() 
@@ -28,9 +27,6 @@
 
 
     <script>
-
-        // const path = require('path');
-        // const fs = require('fs');
 
         //CAMERA
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
